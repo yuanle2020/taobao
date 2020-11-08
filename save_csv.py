@@ -22,11 +22,12 @@ def save_csv(res_list, csv_file_name):
     # 写入文件
     for item in res_list:
         with open(file_name, 'a', newline='', encoding='ansi') as f:
-            L_itemId.append(item["itemId"])
+            L_itemId.append((item["itemId"], item['sellerId'], item['isTmall']))
             writer = csv.writer(f)
             L = [item["itemName"], item["itemId"], item["shopTitle"], item["categoryId"],
                  item["auctionTags"], item["dsrScore"], item["dsrGap"], item["monthSellCount"],
-                 item["realPostFee"], item["pic"], item["provcity"], item["url"], item["promotionPrice"], item["sellerId"],
+                 item["realPostFee"], item["pic"], item["provcity"], item["url"], item["promotionPrice"],
+                 item["sellerId"],
                  item["sellerNickName"], item["price"], item["creativeTitle"], item["isTmall"]]
             writer.writerow(L)
 
