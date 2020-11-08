@@ -14,7 +14,7 @@ def save_mongoDB(res_list,table_name):
     for i in res_list:
         db[table_name].update({'itemId': i['itemId']},{'$set':dict(i)},True)
         print(i)
-        L_itemId.append(i['itemId'])
+        L_itemId.append((i['itemId'], i['sellerId'], i['isTmall']))
 
     return L_itemId
 
