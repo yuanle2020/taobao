@@ -52,19 +52,17 @@ def save_mysql(res_list, mysql_table):
         db.commit()
 
     for i in res_list:
-        sql = f"""INSERT INTO {mysql_table}  VALUES ('{i['itemName']}', '{i['itemId']}', '{i['categoryId']}', '{','.join(i['auctionTags'].split(',')[:10])}', '{i['dsrScore']}', 
-                                                '{i['dsrGap']}', '{i['monthSellCount']}', '{i['realPostFee']}', '{i['provcity']}', '{i['price']}', '{i['promotionPrice']}', '{i['sellerId']}', 
-                                                '{i['sellerNickName']}','{i['url']}', '{i['creativeTitle']}', '{i['isTmall']}', '{i['pic']}', '{i['shopTitle']}')"""
+
+        sql = f"""INSERT INTO {mysql_table}  VALUES ("{i["itemName"]}", "{i["itemId"]}", "{i["categoryId"]}", "{",".join(i["auctionTags"].split(",")[:10])}", "{i["dsrScore"]}", 
+                                                "{i["dsrGap"]}", "{i["monthSellCount"]}", "{i["realPostFee"]}", "{i["provcity"]}", "{i["price"]}", "{i["promotionPrice"]}", "{i["sellerId"]}", 
+                                                "{i["sellerNickName"]}","{i["url"]}", "{i["creativeTitle"]}", "{i["isTmall"]}", "{i["pic"]}", "{i["shopTitle"]}")""".replace("'",'’')
         cursor.execute(sql)
         db.commit()
-        L_itemId.append(i['itemId'])
+        L_itemId.append((i['itemId'], i['sellerId'], i['isTmall']))
 
     cursor.close()
     db.close()
     return L_itemId
 
 
-with open('123.txt', 'r', encoding='utf-8') as fp:
-    content = fp.read()
-    content = eval(content)
-    save_mysql(content,"裤子")
+
